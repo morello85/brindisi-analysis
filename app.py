@@ -386,6 +386,48 @@ to come home to still aren't there.
         "immediate neighbours."
     )
 
+    st.markdown("#### Three actions for the medium-to-long term")
+    st.markdown("""
+These follow directly from what the data flags as Brindisi's binding
+constraints — a leaky education pipeline, low-value-added jobs, and out-migration
+the labour market never reverses. They are **directional priorities inferred from
+the indicators**, not a costed policy plan.
+""")
+    st.markdown("""
+1. **Give Brindisi a higher-education anchor of its own — tied to local
+   industry.** The single worst education number is the **48.3% university
+   take-up (lowest in Puglia)**, and it is structural: there is no degree-granting
+   institution in the city, so studying means leaving at eighteen. Establishing a
+   real university presence or applied higher-technical institutes (*ITS
+   Academy*-style) built around the town's actual sectors — port & logistics,
+   energy, agri-food, aerospace — would keep more school-leavers studying locally
+   *and* feed graduates straight into local employers. This attacks the brain
+   drain at its first valve. *(Data: university transition 48.3%; young-graduate
+   share 21.6% vs 30.0% nationally.)*
+
+2. **Upgrade the industrial base from low-value to high-value work, using the
+   energy transition as the lever.** Brindisi's jobs problem is **pay and
+   productivity, not headcount** — the employment rate (57.4%) is second-best in
+   Puglia, yet average employee pay (€16,979) trails Italy (€22,808) by ~26% and
+   regional value added per worker (€51,329) sits a fifth below the national
+   €65,031. The existing petro-chemical, port and energy assets are the platform:
+   steering investment and *just-transition* funding toward renewables, clean
+   energy and higher-tech port/logistics activity would create the **graduate-
+   level, better-paid roles that give the educated diaspora a reason to return**.
+   *(Data: avg pay −26% vs Italy; value added per worker −21%; agriculture 11.6%
+   of local employment, 2nd-highest in Puglia.)*
+
+3. **Court the diaspora and entrepreneurs back — turn the town's real assets into
+   reasons to stay.** Brindisi loses people faster than any Puglia province
+   (**−6.5 per 1,000 in 2023**), and fertility (1.20) cannot offset it, so growth
+   has to come from **retention and return**. Use the connectivity the town
+   already has (rail, airport, port) plus low living costs to support return-and-
+   remote-work incentives, start-up and self-employment programmes, and a shift
+   from seasonal to year-round tourism — converting assets that today only pass
+   people *through* Brindisi into reasons to base a career *in* it. *(Data:
+   steepest provincial depopulation −6.5‰; fertility 1.20 ≈ national.)*
+""")
+
     st.markdown("#### Method & caveats")
     st.markdown("""
 - **Geographic unit:** economic metrics (income, value added) are only published
