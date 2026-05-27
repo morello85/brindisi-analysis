@@ -284,6 +284,75 @@ DEMOG_CONTEXT = {
 }
 
 # ---------------------------------------------------------------------------
+# 9. HIGHER-EDUCATION PRECEDENTS - Italian towns that built a university / ITS
+#    Academy from scratch. Supports the one-pager's recommendation #1.
+# ---------------------------------------------------------------------------
+UNI_EXAMPLES = [
+    {
+        "name": "Università degli Studi di Foggia",
+        "place": "Foggia, Puglia",
+        "tag": "Same region · state university",
+        "founded": "1999",
+        "model": ("Began as a decentralised pole of the University of Bari (from "
+                  "1990/91), then spun off into a fully autonomous state university."),
+        "outcome": ("Credited with catalysing a 'metamorphosis' of the city (ANCSA "
+                    "*Premio Gubbio* recognition, 2012). Today Foggia — Puglia's "
+                    "poorest province by income — has a university-transition rate of "
+                    "55.0%, well above Brindisi's 48.3%."),
+        "why_brindisi": ("The closest precedent: a Puglia provincial capital with a "
+                         "similar profile that went from satellite courses to a full "
+                         "university, and now keeps more of its school-leavers in "
+                         "higher education than Brindisi does."),
+        "sources": [
+            ("Università di Foggia — Wikipedia",
+             "https://it.m.wikipedia.org/wiki/Universit%C3%A0_degli_Studi_di_Foggia"),
+            ("History — UniFg", "https://www.unifg.it/en/university/identity-and-history/history"),
+        ],
+    },
+    {
+        "name": "Università Kore di Enna",
+        "place": "Enna, Sicilia",
+        "tag": "Small town · built from scratch",
+        "founded": "2004 (operational 2005/06)",
+        "model": ("A non-state university created on the initiative of the Regione "
+                  "Siciliana — a brand-new institution in a town smaller than Brindisi."),
+        "outcome": ("Became central Sicily's only university; built a new science "
+                    "campus with EU funds, including the largest earthquake simulator "
+                    "in Europe and the only full-motion flight simulator in a European "
+                    "university (aerospace engineering)."),
+        "why_brindisi": ("Proof that a modest Southern town can stand up a research-"
+                         "grade, industry-relevant university from zero — notable given "
+                         "Brindisi's own aerospace presence."),
+        "sources": [
+            ("Università Kore di Enna — Wikipedia",
+             "https://it.wikipedia.org/wiki/Universit%C3%A0_Kore_di_Enna"),
+        ],
+    },
+    {
+        "name": "ITS Fabriano Academy (+ national ITS network)",
+        "place": "Fabriano, Marche",
+        "tag": "Industry-linked · faster, cheaper model",
+        "founded": "ITS network reformed 2022; PNRR-funded expansion",
+        "model": ("A higher-technical academy — not a university — training technicians "
+                  "in automation, energy and ICT/security, co-designed with and feeding "
+                  "local firms."),
+        "outcome": ("82% of students employed within 12 months and ~90% working in the "
+                    "field they trained for. Nationally the ITS Academy network exceeds "
+                    "85% employment within a year; enrolment tripled from ~13,000 (2021) "
+                    "to over 40,000."),
+        "why_brindisi": ("The realistic near-term move: an ITS Academy is far quicker "
+                         "and cheaper to launch than a university and can be wired "
+                         "directly to Brindisi's port, energy and aerospace employers."),
+        "sources": [
+            ("ITS Fabriano Academy — Il Resto del Carlino",
+             "https://www.ilrestodelcarlino.it/ancona/cronaca/il-successo-dellits-fabriano-academy-56a8d148"),
+            ("ITS Academy, occupazione all'84% — ItaliaOggi",
+             "https://www.italiaoggi.it/settori/scuola/its-academy-occupazione-all84-e-iscrizioni-in-aumento-lx62ga23"),
+        ],
+    },
+]
+
+# ---------------------------------------------------------------------------
 # Master source list (shown in the app)
 # ---------------------------------------------------------------------------
 SOURCES = [

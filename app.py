@@ -120,7 +120,8 @@ st.markdown(
     "Benchmarks: the other five Puglia provinces, the South (*Mezzogiorno*), and Italy."
 )
 
-tab_dash, tab_paper = st.tabs(["📊 Dashboard", "📄 One-pager"])
+tab_dash, tab_paper, tab_uni = st.tabs(
+    ["📊 Dashboard", "📄 One-pager", "🎓 University deep-dive"])
 
 # =========================================================================== DASHBOARD
 with tab_dash:
@@ -403,7 +404,8 @@ the indicators**, not a costed policy plan.
    energy, agri-food, aerospace — would keep more school-leavers studying locally
    *and* feed graduates straight into local employers. This attacks the brain
    drain at its first valve. *(Data: university transition 48.3%; young-graduate
-   share 21.6% vs 30.0% nationally.)*
+   share 21.6% vs 30.0% nationally.)* **→ It can be done — see the 🎓 University
+   deep-dive tab for the Foggia, Enna and ITS Fabriano precedents.**
 
 2. **Upgrade the industrial base from low-value to high-value work, using the
    energy transition as the lever.** Brindisi's jobs problem is **pay and
@@ -442,6 +444,42 @@ the indicators**, not a costed policy plan.
     st.markdown("#### Sources")
     for name, url in data.SOURCES:
         st.markdown(f"- [{name}]({url})")
+
+# =========================================================================== UNIVERSITY
+with tab_uni:
+    st.subheader("University deep-dive: can a town really build one from scratch?")
+    st.markdown(
+        "Recommendation #1 in the one-pager calls for giving Brindisi a higher-"
+        "education anchor of its own. It is fair to ask whether that is realistic — "
+        "**it is, and there are three Italian precedents, one of them in Puglia.**"
+    )
+
+    ut = data._CROSS["university_transition"]["values"]
+    st.info(
+        f"**A natural experiment next door.** Foggia is Puglia's *poorest* province by "
+        f"income, yet **{ut['Foggia']:.1f}%** of its school-leavers go on to university "
+        f"— against Brindisi's **{ut['Brindisi']:.1f}%**, the regional low. The likeliest "
+        f"difference: Foggia gave them a local university to enrol in (founded 1999); "
+        f"Brindisi has none."
+    )
+
+    for ex in data.UNI_EXAMPLES:
+        with st.container(border=True):
+            st.markdown(f"### {ex['name']}")
+            st.caption(f"📍 {ex['place']}  ·  🗓️ Founded {ex['founded']}  ·  {ex['tag']}")
+            st.markdown(f"**How it was done.** {ex['model']}")
+            st.markdown(f"**What happened.** {ex['outcome']}")
+            st.markdown(f"**Why it matters for Brindisi.** {ex['why_brindisi']}")
+            srcs = "  ·  ".join(f"[{n}]({u})" for n, u in ex["sources"])
+            st.caption(f"Sources: {srcs}")
+
+    st.success(
+        "**The lesson for Brindisi.** Start with the fast, cheap, high-yield move — an "
+        "**ITS Academy wired to the port, energy and aerospace employers** (the Fabriano "
+        "model shows 85%+ employment) — and build toward a permanent university presence "
+        "as Foggia and Enna did. But pair it with recommendation #2: a degree only stops "
+        "the brain drain if there are graduate-level jobs locally to fill afterwards."
+    )
 
 st.divider()
 st.caption("Built with Streamlit · All figures traceable to ISTAT, Eurostat and "
