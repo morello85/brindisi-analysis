@@ -1,0 +1,300 @@
+"""
+Validated dataset for the Brindisi socio-economic analysis.
+
+EVERY number in this file is traceable to an official source (ISTAT, Eurostat,
+Centro Studi Tagliacarne/Unioncamere). The reference year is stored next to each
+metric so the app can label charts honestly. Where a figure is an ISTAT estimate
+or refers to a different vintage, it is flagged in NOTES.
+
+Primary source for the cross-sectional comparison:
+ISTAT, "Il Benessere Equo e Sostenibile dei Territori (BesT) - Puglia 2024"
+(published Dec 2024), tables 2.1-2.4, 3.1 and section 4.
+https://www.istat.it/wp-content/uploads/2024/12/Puglia_BesT_2024.pdf
+"""
+
+import pandas as pd
+
+# Geographic ordering used across the app. Brindisi is the subject of the study.
+PROVINCES = ["Foggia", "Bari", "Taranto", "Brindisi", "Lecce", "Barletta-Andria-Trani"]
+BENCHMARKS = ["Puglia", "Mezzogiorno", "Italia"]
+SUBJECT = "Brindisi"
+
+# ---------------------------------------------------------------------------
+# 1. CROSS-SECTIONAL COMPARISON  (latest available year per metric)
+#    Source: ISTAT BesT Puglia 2024 - tables 2.2, 2.3, 2.4, 2.1
+#    ".." in the source (figure below half the minimum unit) is stored as None.
+# ---------------------------------------------------------------------------
+
+# Each metric: dict of name -> {area: value}, plus metadata
+_CROSS = {
+    # 04-01 Reddito medio disponibile pro capite (euro) - 2022
+    "disposable_income": {
+        "label": "Disposable income per capita",
+        "unit": "€/year",
+        "year": "2022",
+        "polarity": "higher_better",
+        "source": "ISTAT BesT Puglia 2024, Tav. 2.4 (Conti Economici Territoriali)",
+        "values": {
+            "Foggia": 13984, "Bari": 18992, "Taranto": 14816, "Brindisi": 15267,
+            "Lecce": 15440, "Barletta-Andria-Trani": 15618,
+            "Puglia": 16241, "Mezzogiorno": 16062, "Italia": 21089,
+        },
+    },
+    # 04-02 Retribuzione media annua dei lavoratori dipendenti (euro) - 2022
+    "avg_pay": {
+        "label": "Average annual employee pay",
+        "unit": "€/year",
+        "year": "2022",
+        "polarity": "higher_better",
+        "source": "ISTAT BesT Puglia 2024, Tav. 2.4 (INPS)",
+        "values": {
+            "Foggia": 15560, "Bari": 18034, "Taranto": 17556, "Brindisi": 16979,
+            "Lecce": 15043, "Barletta-Andria-Trani": None,
+            "Puglia": 16942, "Mezzogiorno": 16863, "Italia": 22808,
+        },
+    },
+    # 03-01 Tasso di occupazione 20-64 anni (%) - 2023
+    "employment_rate": {
+        "label": "Employment rate (20-64)",
+        "unit": "%",
+        "year": "2023",
+        "polarity": "higher_better",
+        "source": "ISTAT BesT Puglia 2024, Tav. 2.3",
+        "values": {
+            "Foggia": 49.3, "Bari": 60.1, "Taranto": 47.5, "Brindisi": 57.4,
+            "Lecce": 55.6, "Barletta-Andria-Trani": 51.8,
+            "Puglia": 54.7, "Mezzogiorno": 52.2, "Italia": 66.3,
+        },
+    },
+    # 03-04 Tasso di occupazione giovanile 15-29 anni (%) - 2023
+    "youth_employment_rate": {
+        "label": "Youth employment rate (15-29)",
+        "unit": "%",
+        "year": "2023",
+        "polarity": "higher_better",
+        "source": "ISTAT BesT Puglia 2024, Tav. 2.3",
+        "values": {
+            "Foggia": 25.3, "Bari": 32.7, "Taranto": 16.3, "Brindisi": 30.1,
+            "Lecce": 28.3, "Barletta-Andria-Trani": 31.9,
+            "Puglia": 28.0, "Mezzogiorno": 24.7, "Italia": 34.7,
+        },
+    },
+    # 03-02 Tasso di mancata partecipazione al lavoro (%) - 2023 (broad unemployment)
+    "labour_underuse": {
+        "label": "Labour non-participation rate",
+        "unit": "%",
+        "year": "2023",
+        "polarity": "lower_better",
+        "source": "ISTAT BesT Puglia 2024, Tav. 2.3",
+        "values": {
+            "Foggia": 26.7, "Bari": 17.8, "Taranto": 33.2, "Brindisi": 23.3,
+            "Lecce": 22.3, "Barletta-Andria-Trani": 21.2,
+            "Puglia": 23.0, "Mezzogiorno": 28.0, "Italia": 14.8,
+        },
+    },
+    # 02-06 Giovani che non lavorano e non studiano - NEET (%) - 2023
+    "neet": {
+        "label": "NEET (15-29 not in work/education)",
+        "unit": "%",
+        "year": "2023",
+        "polarity": "lower_better",
+        "source": "ISTAT BesT Puglia 2024, Tav. 2.2",
+        "values": {
+            "Foggia": 26.7, "Bari": 18.6, "Taranto": 28.5, "Brindisi": 21.7,
+            "Lecce": 20.4, "Barletta-Andria-Trani": 21.7,
+            "Puglia": 22.2, "Mezzogiorno": 24.7, "Italia": 16.1,
+        },
+    },
+    # 02-03 Persone con almeno il diploma (25-64) (%) - 2023
+    "diploma": {
+        "label": "Adults (25-64) with at least a diploma",
+        "unit": "%",
+        "year": "2023",
+        "polarity": "higher_better",
+        "source": "ISTAT BesT Puglia 2024, Tav. 2.2",
+        "values": {
+            "Foggia": 51.6, "Bari": 62.0, "Taranto": 52.7, "Brindisi": 53.0,
+            "Lecce": 56.1, "Barletta-Andria-Trani": 47.8,
+            "Puglia": 55.7, "Mezzogiorno": 57.7, "Italia": 65.5,
+        },
+    },
+    # 02-04 Laureati e altri titoli terziari (25-39) (%) - 2023
+    "graduates": {
+        "label": "Young adults (25-39) with a degree",
+        "unit": "%",
+        "year": "2023",
+        "polarity": "higher_better",
+        "source": "ISTAT BesT Puglia 2024, Tav. 2.2",
+        "values": {
+            "Foggia": 16.3, "Bari": 28.0, "Taranto": 17.9, "Brindisi": 21.6,
+            "Lecce": 22.5, "Barletta-Andria-Trani": 26.0,
+            "Puglia": 22.9, "Mezzogiorno": 24.4, "Italia": 30.0,
+        },
+    },
+    # 02-05 Passaggio all'universita (%) - 2022
+    "university_transition": {
+        "label": "School-leavers going to university",
+        "unit": "%",
+        "year": "2022",
+        "polarity": "higher_better",
+        "source": "ISTAT BesT Puglia 2024, Tav. 2.2",
+        "values": {
+            "Foggia": 55.0, "Bari": 52.2, "Taranto": 49.5, "Brindisi": 48.3,
+            "Lecce": 55.2, "Barletta-Andria-Trani": 56.0,
+            "Puglia": 52.8, "Mezzogiorno": 47.4, "Italia": 51.7,
+        },
+    },
+    # 01-01 Speranza di vita alla nascita (anni) - 2023 (provv.)
+    "life_expectancy": {
+        "label": "Life expectancy at birth",
+        "unit": "years",
+        "year": "2023",
+        "polarity": "higher_better",
+        "source": "ISTAT BesT Puglia 2024, Tav. 2.1",
+        "values": {
+            "Foggia": 82.5, "Bari": 83.4, "Taranto": 82.7, "Brindisi": 82.4,
+            "Lecce": 83.2, "Barletta-Andria-Trani": 83.2,
+            "Puglia": 82.8, "Mezzogiorno": 82.1, "Italia": 83.1,
+        },
+    },
+}
+
+
+def cross_section_long() -> pd.DataFrame:
+    """Tidy long-format frame: one row per (metric, area)."""
+    rows = []
+    for key, m in _CROSS.items():
+        for area, val in m["values"].items():
+            rows.append({
+                "metric_key": key,
+                "metric": m["label"],
+                "unit": m["unit"],
+                "year": m["year"],
+                "polarity": m["polarity"],
+                "source": m["source"],
+                "area": area,
+                "value": val,
+                "kind": "Province" if area in PROVINCES else "Benchmark",
+            })
+    return pd.DataFrame(rows)
+
+
+def metric_meta() -> dict:
+    """Metadata (label/unit/year/polarity/source) keyed by metric_key."""
+    return {k: {kk: vv for kk, vv in v.items() if kk != "values"} for k, v in _CROSS.items()}
+
+
+# ---------------------------------------------------------------------------
+# 2. CITY OF BRINDISI - population at every census 1861-2021
+#    Source: ISTAT censuses via tuttitalia.it
+# ---------------------------------------------------------------------------
+CITY_CENSUS = pd.DataFrame({
+    "year": [1861, 1871, 1881, 1901, 1911, 1921, 1931, 1936, 1951, 1961,
+             1971, 1981, 1991, 2001, 2011, 2021],
+    "population": [9137, 13552, 16618, 23106, 25692, 35440, 39885, 41699, 58313,
+                   70657, 81893, 89786, 95383, 89081, 88812, 83317],
+})
+CITY_PEAK = {"year": 1991, "population": 95383}
+CITY_LATEST = {"year": 2021, "population": 83317}
+CITY_SOURCE = "ISTAT population censuses 1861-2021 (via tuttitalia.it)"
+
+# ---------------------------------------------------------------------------
+# 3. PROVINCE OF BRINDISI - resident population 2001-2024 (1 Jan)
+#    Source: ISTAT demographic balance via tuttitalia.it
+# ---------------------------------------------------------------------------
+PROVINCE_POP = pd.DataFrame({
+    "year": list(range(2001, 2025)),
+    "population": [402093, 400974, 400569, 401217, 403786, 402831, 402985, 402891,
+                   403096, 403229, 400504, 399835, 401652, 400721, 398661, 397083,
+                   394977, 387817, 385235, 381946, 381273, 379522, 377240, 375567],
+})
+PROVINCE_PEAK = {"year": 2010, "population": 403229}
+PROVINCE_LATEST = {"year": 2024, "population": 375567}
+PROVINCE_SOURCE = "ISTAT resident population balance 2001-2024 (via tuttitalia.it)"
+
+# ---------------------------------------------------------------------------
+# 4. POPULATION CHANGE RATE 2023 (per 1,000 residents) - provinces reported by ISTAT
+#    Source: ISTAT BesT Puglia 2024, section 4. Only the values explicitly stated.
+# ---------------------------------------------------------------------------
+POP_CHANGE_2023 = pd.DataFrame({
+    "area": ["Brindisi", "Taranto", "Bari", "Puglia", "Italia"],
+    "rate_per_1000": [-6.5, -6.3, -2.7, -4.5, -0.1],
+})
+POP_CHANGE_SOURCE = ("ISTAT BesT Puglia 2024, section 4. ISTAT reports Brindisi and "
+                     "Taranto as the steepest provincial declines in Puglia; Foggia, "
+                     "Lecce and BAT were not given as exact figures.")
+
+# ---------------------------------------------------------------------------
+# 5. PUGLIA's RANK AMONG 234 EU NUTS-2 REGIONS  (Eurostat, latest year)
+#    Source: ISTAT BesT Puglia 2024, Tav. 3.1 (data: Eurostat)
+# ---------------------------------------------------------------------------
+EU_RANKING = pd.DataFrame({
+    "indicator": ["Employment rate 20-64", "Adults with a diploma", "NEET (15-29)",
+                  "Continuing training", "Life expectancy", "Infant mortality"],
+    "puglia_value": ["54.7%", "55.7%", "22.2%", "8.5%", "82.8 yrs", "2.7 per 1,000"],
+    "rank": [231, 225, 219, 153, 33, 80],
+    "of_total": [234, 234, 228, 234, 234, 232],
+    "year": ["2023", "2023", "2023", "2023", "2022", "2022"],
+})
+EU_RANKING_SOURCE = "ISTAT BesT Puglia 2024, Tav. 3.1 (source: Eurostat). Ranking 1 = best."
+
+# ---------------------------------------------------------------------------
+# 6. WEALTH PRODUCED - value added per inhabitant (context, region/nation)
+#    Source: ISTAT Conti Territoriali 2021 (via BesT 2024 sec. 4) and
+#            Centro Studi Tagliacarne 2023 for selected provinces.
+# ---------------------------------------------------------------------------
+VALUE_ADDED = {
+    "year_region": "2021",
+    "puglia_per_capita": 18216,
+    "italia_per_capita": 27688,
+    "puglia_per_worker": 51329,
+    "italia_per_worker": 65031,
+    "prov_range_2021": (15342, 20991),  # min-max across the 6 Puglia provinces, BesT fig 4.4
+    "source": ("ISTAT Conti Economici Territoriali 2021 (via BesT Puglia 2024, sec. 4). "
+               "Tagliacarne 2023 provincial value added per capita: Bari 24,911 (75th in "
+               "Italy), Taranto 21,502 (84th), Barletta-Andria-Trani 18,184 (lowest in "
+               "Puglia); Brindisi ranked ~85th nationally."),
+}
+
+# ---------------------------------------------------------------------------
+# 7. ECONOMIC STRUCTURE - share of employment by sector (qualitative context)
+#    Source: ISTAT BesT Puglia 2024, section 4.
+# ---------------------------------------------------------------------------
+ECON_STRUCTURE = {
+    "note": ("Puglia is more agricultural than Italy (8.4% of employment vs 3.6%) and "
+             "slightly more industrial (12.7%). Within the region, Foggia (14.1%) and "
+             "Brindisi (11.6%) have the highest agricultural specialisation; "
+             "Barletta-Andria-Trani (15.9%) and Taranto (15.3%) the most industry; "
+             "Bari (74.3%) and Lecce (73.0%) the most service-oriented."),
+    "source": "ISTAT BesT Puglia 2024, section 4.",
+}
+
+# ---------------------------------------------------------------------------
+# 8. FERTILITY & AGEING (regional, with provincial extremes)
+# ---------------------------------------------------------------------------
+DEMOG_CONTEXT = {
+    "fertility_puglia_2023": 1.20,
+    "fertility_italia_2023": 1.20,       # "in linea con la media nazionale"
+    "fertility_mezzogiorno_2023": 1.24,
+    "fertility_range": "1.16 (Taranto) to 1.29 (Foggia)",
+    "old_age_index_puglia_2024": 201,    # over-65s per 100 under-15s
+    "old_age_index_italia_2024": 200,
+    "old_age_index_range": "170 (Barletta-Andria-Trani) to 230 (Lecce)",
+    "source": "ISTAT BesT Puglia 2024, section 4 (Figura 4.3, demographic nowcast).",
+}
+
+# ---------------------------------------------------------------------------
+# Master source list (shown in the app)
+# ---------------------------------------------------------------------------
+SOURCES = [
+    ("ISTAT - Il Benessere Equo e Sostenibile dei Territori (BesT), Puglia 2024",
+     "https://www.istat.it/wp-content/uploads/2024/12/Puglia_BesT_2024.pdf"),
+    ("ISTAT - Conti Economici Territoriali 2021-2023",
+     "https://www.istat.it/comunicato-stampa/conti-economici-territoriali-anni-2021-2023/"),
+    ("Eurostat - Regional statistics (NUTS-2/NUTS-3), via ISTAT BesT Tav. 3.1",
+     "https://ec.europa.eu/eurostat/web/regions/database"),
+    ("Centro Studi Tagliacarne / Unioncamere - Valore aggiunto provinciale 2023",
+     "https://www.tagliacarne.it/news/valore_aggiunto_tutte_le_province_italiane_in_crescita_sul_podio_4_del_sud_nel_2023-3890/"),
+    ("ISTAT population censuses & demographic balance (via tuttitalia.it)",
+     "https://www.tuttitalia.it/puglia/12-brindisi/statistiche/"),
+]
