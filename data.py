@@ -303,6 +303,11 @@ UNI_EXAMPLES = [
                          "similar profile that went from satellite courses to a full "
                          "university, and now keeps more of its school-leavers in "
                          "higher education than Brindisi does."),
+        "cost": ("No private founding capital: as a **state** university carved out of "
+                 "the pre-existing Bari pole, Foggia runs on the ministerial operating "
+                 "fund (FFO) and inherited Bari's staff and buildings. The 'investment' "
+                 "is recurring state funding, not upfront capital — no clean founding-"
+                 "cost figure is published."),
         "sources": [
             ("Università di Foggia — Wikipedia",
              "https://it.m.wikipedia.org/wiki/Universit%C3%A0_degli_Studi_di_Foggia"),
@@ -323,7 +328,15 @@ UNI_EXAMPLES = [
         "why_brindisi": ("Proof that a modest Southern town can stand up a research-"
                          "grade, industry-relevant university from zero — notable given "
                          "Brindisi's own aerospace presence."),
+        "cost": ("Concrete and documented: **INAIL invested €78 million** to build the "
+                 "60,000+ m² campus, with a further **€25 million+** for the engineering "
+                 "& architecture research labs (and €4 m more recently for the "
+                 "rectorate). The private founding endowment — Consorzio Ennese "
+                 "Universitario plus the Regione Siciliana under regional law 6/2001 — "
+                 "was never published as a single figure."),
         "sources": [
+            ("Campus da 78 mln per la Kore — MilanoFinanza",
+             "https://www.milanofinanza.it/news/campus-da-78-mln-per-la-kore-di-enna-1202913"),
             ("Università Kore di Enna — Wikipedia",
              "https://it.wikipedia.org/wiki/Universit%C3%A0_Kore_di_Enna"),
         ],
@@ -343,7 +356,15 @@ UNI_EXAMPLES = [
         "why_brindisi": ("The realistic near-term move: an ITS Academy is far quicker "
                          "and cheaper to launch than a university and can be wired "
                          "directly to Brindisi's port, energy and aerospace employers."),
+        "cost": ("ITS Academies aren't capitalised like universities — they live on the "
+                 "national *Fondo per l'istruzione tecnologica superiore* plus regional "
+                 "co-funding and member firms. The public envelope is large and tilted "
+                 "south: the **PNRR commits €1.5 bn to ITS through 2026, including €50 m "
+                 "specifically for *new* ITS foundations** and €500 m for 4.0 "
+                 "laboratories, with ≥40% reserved for the Mezzogiorno."),
         "sources": [
+            ("ITS Academy — finanziamenti PNRR (itsvita.it)",
+             "https://itsvita.it/finanziamenti-pnrr/"),
             ("ITS Fabriano Academy — Il Resto del Carlino",
              "https://www.ilrestodelcarlino.it/ancona/cronaca/il-successo-dellits-fabriano-academy-56a8d148"),
             ("ITS Academy, occupazione all'84% — ItaliaOggi",
@@ -351,6 +372,65 @@ UNI_EXAMPLES = [
         ],
     },
 ]
+
+# ---------------------------------------------------------------------------
+# 10. WHAT BRINDISI SHOULD TEACH - evidence-based course recommendation
+# ---------------------------------------------------------------------------
+BRINDISI_COURSE = {
+    "headline": ("A degree-level pipeline in **Aerospace & Energy-Transition "
+                 "Engineering** — created by *upgrading Brindisi's existing aerospace "
+                 "ITS and tech district into a degree-granting anchor*, not by starting "
+                 "from a blank sheet."),
+    "pillars": [
+        {
+            "name": "1 · Aerospace engineering & advanced manufacturing",
+            "evidence": ("Brindisi is the **headquarters of the DTA — the Distretto "
+                         "Tecnologico Aerospaziale, ranked Italy's #1 technological "
+                         "district (1st of 195)** — and hosts **Leonardo's Helicopter "
+                         "Division and Avio Aero**, which builds the Catalyst turboprop "
+                         "for the Eurodrone across its Brindisi and Bari sites. A higher-"
+                         "technical seed already exists in the city: the **ITS Aerospazio "
+                         "Puglia** (at the Cittadella della Ricerca), whose graduates "
+                         "reached ~71% employment within a year (88 of 124, 2011–2018). "
+                         "The industrial demand and the training nucleus are already "
+                         "here — what is missing is the *degree (laurea)* level, so "
+                         "today's students must leave for the Politecnico di Bari or "
+                         "Turin to study it."),
+        },
+        {
+            "name": "2 · Renewable energy & energy-systems engineering",
+            "evidence": ("Brindisi's Enel 'Federico II' **coal plant at Cerano is ceasing "
+                         "ordinary coal generation (end-2025)**, and the area is an "
+                         "officially recognised **'complex crisis area' with 60+ "
+                         "reindustrialisation proposals** — offshore wind, green hydrogen "
+                         "and agrivoltaic. An energy-systems strand would retrain "
+                         "displaced fossil-fuel workers and capture the just-transition "
+                         "investment, while the port's petro-chemical base keeps "
+                         "process/chemical engineering grounded in existing industry."),
+        },
+    ],
+    "why_it_fits": ("Both pillars map onto employers **already physically in Brindisi**, "
+                    "so graduates would have local, graduate-level jobs to stay for — "
+                    "closing the loop between recommendation #1 (lift the 48.3% "
+                    "university take-up) and #2 (create higher-value work). Enna's Kore "
+                    "even proves the academic model in a small Southern town: it built an "
+                    "aerospace-engineering lab with the only full-motion flight simulator "
+                    "in a European university."),
+    "caveat": ("Brindisi is **not greenfield**. The fast, low-risk move is to upgrade the "
+               "existing ITS Aerospazio Puglia and partner with the University of Salento "
+               "to add degree-level courses — not to charter a brand-new generalist "
+               "university competing with Bari and Lecce. Aim narrow and applied, where "
+               "Brindisi has a real industrial edge."),
+    "sources": [
+        ("DTA – Distretto Tecnologico Aerospaziale (Brindisi)",
+         "https://www.dtascarl.org/en/at-a-glance/"),
+        ("ITS Aerospazio Puglia (Brindisi)", "https://www.itsaerospaziopuglia.it/"),
+        ("Avio Aero Catalyst / Eurodrone — DTA",
+         "https://www.dtascarl.org/2022/03/28/motore-turboelica-catalyst-per-leurodrone-sviluppato-in-parte-da-avio-aero-nei-siti-di-brindisi-e-bari/"),
+        ("Cerano coal phase-out & reindustrialisation — MIMIT",
+         "https://www.mimit.gov.it/it/notizie-stampa/mimit-al-via-consultazione-pubblica-per-la-reindustrializzazione-dellarea-dellex-centrale-a-carbone-di-brindisi"),
+    ],
+}
 
 # ---------------------------------------------------------------------------
 # Master source list (shown in the app)

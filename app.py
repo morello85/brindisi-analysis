@@ -469,9 +469,22 @@ with tab_uni:
             st.caption(f"📍 {ex['place']}  ·  🗓️ Founded {ex['founded']}  ·  {ex['tag']}")
             st.markdown(f"**How it was done.** {ex['model']}")
             st.markdown(f"**What happened.** {ex['outcome']}")
+            st.markdown(f"**What it cost / how it was funded.** {ex['cost']}")
             st.markdown(f"**Why it matters for Brindisi.** {ex['why_brindisi']}")
             srcs = "  ·  ".join(f"[{n}]({u})" for n, u in ex["sources"])
             st.caption(f"Sources: {srcs}")
+
+    st.markdown("### What Brindisi should teach — a specific, evidence-based pick")
+    bc = data.BRINDISI_COURSE
+    st.markdown(f"**Recommendation.** {bc['headline']}")
+    for p in bc["pillars"]:
+        with st.container(border=True):
+            st.markdown(f"**{p['name']}**")
+            st.markdown(p["evidence"])
+    st.markdown(f"**Why this fits Brindisi.** {bc['why_it_fits']}")
+    st.warning(f"**Reality check.** {bc['caveat']}")
+    course_srcs = "  ·  ".join(f"[{n}]({u})" for n, u in bc["sources"])
+    st.caption(f"Sources: {course_srcs}")
 
     st.success(
         "**The lesson for Brindisi.** Start with the fast, cheap, high-yield move — an "
