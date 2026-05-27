@@ -58,24 +58,24 @@ def metric_bar(metric_key: str):
     d = d.sort_values("value", ascending=higher_better)
 
     # number format: no currency symbol inside Altair format strings (kept in titles)
-    fmt = ",.0f" if m["unit"].startswith("€") else (".1f" if m["unit"] == "%" else ".1f")
+    fmt = ",.0f" if m["unit"].startswith("€") else ".1f"
     axis_title = f'{m["label"]} ({m["unit"]})'
 
-    bars = (
-        alt.Chart(d)
-        .mark_bar()
-        .encode(
-            x=alt.X("value:Q", title=axis_title),
-            y=alt.Y("area:N", sort=list(d["area"]), title=None),
-            color=colour_scale(),
-            tooltip=[
-                alt.Tooltip("area:N", title="Area"),
-                alt.Tooltip("value:Q", title=m["label"], format=fmt),
-            ],
-        )
+    # Pad the x-axis so the value labels printed at the bar ends always fit.
+    x = alt.X("value:Q", title=axis_title,
+              scale=alt.Scale(domain=[0, float(d["value"].max()) * 1.18]))
+    base = alt.Chart(d).encode(y=alt.Y("area:N", sort=list(d["area"]), title=None))
+
+    bars = base.mark_bar().encode(
+        x=x,
+        color=colour_scale(),
+        tooltip=[
+            alt.Tooltip("area:N", title="Area"),
+            alt.Tooltip("value:Q", title=m["label"], format=fmt),
+        ],
     )
-    labels = bars.mark_text(align="left", dx=3, fontSize=11).encode(
-        text=alt.Text("value:Q", format=fmt), color=alt.value("#333")
+    labels = base.mark_text(align="left", dx=3, fontSize=11, color="#333").encode(
+        x=x, text=alt.Text("value:Q", format=fmt),
     )
     return (bars + labels).properties(height=28 * len(d) + 30)
 
@@ -91,7 +91,11 @@ def gap_vs(metric_key: str, ref: str = "Italia"):
     pct = diff / r * 100 if r else None
     # Is Brindisi better or worse than the reference?
     worse = (diff < 0) if m["polarity"] == "higher_better" else (diff > 0)
-    return {"brindisi": b, "ref": r, "diff": diff, "pct": pct,
+    # Gap re-oriented so the SIGN always means the same thing:
+    #   positive = Brindisi is doing better  -> shown green
+    #   negative = Brindisi is doing worse   -> shown red
+    signed_good = diff if m["polarity"] == "higher_better" else -diff
+    return {"brindisi": b, "ref": r, "diff": diff, "pct": pct, "signed_good": signed_good,
             "worse": worse, "unit": m["unit"], "label": m["label"], "year": m["year"]}
 
 
@@ -129,16 +133,18 @@ with tab_dash:
         g = gap_vs(key, "Italia")
         if not g:
             continue
-        delta = f"{g['diff']:+,.0f}" if g["unit"].startswith("€") else f"{g['diff']:+.1f}"
-        delta += "" if g["unit"].startswith("€") else (" pp" if g["unit"] == "%" else "")
-        # For "lower is better" metrics, invert the colour meaning so red = bad.
-        m = meta[key]
-        delta_color = "normal" if m["polarity"] == "higher_better" else "inverse"
+        # Show the gap in the "good" direction: positive (better) = green,
+        # negative (worse) = red, applied consistently to every metric.
+        sg = g["signed_good"]
+        if g["unit"].startswith("€"):
+            delta = f"{sg:+,.0f}"
+        else:
+            delta = f"{sg:+.1f}" + (" pp" if g["unit"] == "%" else "")
         col.metric(
             label=f'{g["label"]} ({g["year"]})',
             value=fmt_val(g["brindisi"], g["unit"]),
             delta=f"{delta} vs Italy ({fmt_val(g['ref'], g['unit'])})",
-            delta_color=delta_color,
+            delta_color="normal",
         )
 
     st.divider()
@@ -224,17 +230,21 @@ with tab_dash:
     st.markdown("**2023 population change — Brindisi is shrinking fastest in Puglia**")
     pc = data.POP_CHANGE_2023.copy()
     pc["highlight"] = pc["area"].map(tag)
-    pc_chart = (
-        alt.Chart(pc)
-        .mark_bar()
-        .encode(
-            x=alt.X("rate_per_1000:Q", title="Net population change (per 1,000 residents), 2023"),
-            y=alt.Y("area:N", sort=list(pc.sort_values("rate_per_1000")["area"]), title=None),
-            color=colour_scale(),
-            tooltip=["area", alt.Tooltip("rate_per_1000:Q", format=".1f")],
-        )
-        .properties(height=200)
+    pc_order = list(pc.sort_values("rate_per_1000")["area"])
+    pc_min = float(pc["rate_per_1000"].min())
+    pc_x = alt.X("rate_per_1000:Q",
+                 title="Net population change (per 1,000 residents), 2023",
+                 scale=alt.Scale(domain=[pc_min * 1.25, 0.6]))
+    pc_base = alt.Chart(pc).encode(y=alt.Y("area:N", sort=pc_order, title=None))
+    pc_bars = pc_base.mark_bar().encode(
+        x=pc_x, color=colour_scale(),
+        tooltip=["area", alt.Tooltip("rate_per_1000:Q", format=".1f")],
     )
+    # Bars run leftward (all values negative) -> place labels just left of each end.
+    pc_labels = pc_base.mark_text(align="right", dx=-4, fontSize=11, color="#333").encode(
+        x=pc_x, text=alt.Text("rate_per_1000:Q", format=".1f"),
+    )
+    pc_chart = (pc_bars + pc_labels).properties(height=200)
     st.altair_chart(pc_chart, width="stretch")
     st.caption(data.POP_CHANGE_SOURCE)
 
