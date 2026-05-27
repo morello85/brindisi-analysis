@@ -331,6 +331,39 @@ mid-pack regionally, with Foggia and Taranto usually faring worse.
    so Brindisi's struggle is real but shared across the South. *(Eurostat)*
 """)
 
+    st.markdown("#### Spotlight: the university gap that feeds the brain drain")
+    st.warning(
+        "**Only 48.3% of Brindisi's school-leavers go on to university (2022) — "
+        "the lowest rate of any Puglia province.** It sits below the national "
+        "average (51.7%) and Puglia's own (52.8%), barely above the broad Southern "
+        "figure (47.4%), and trails the regional front-runners — Barletta-Andria-"
+        "Trani (56.0%), Lecce (55.2%) and Foggia (55.0%) — by seven to eight points."
+    )
+    st.markdown("""
+**Why this number matters more than it looks.** A university-transition rate is
+not just an education statistic for Brindisi — it is the **first valve of the
+brain drain**. Unlike Bari, Lecce and Foggia, each of which anchors a full
+university, Brindisi has no degree-granting institution of its own. So for a
+local eighteen-year-old, *"going to university" almost always means leaving the
+city*. That relocation cost depresses enrolment at the margin — and, more
+corrosively, the minority who do enrol study in Lecce, Bari or the north and
+rarely come back. The result is a self-reinforcing loop, and the numbers line up
+exactly with it: Brindisi simultaneously posts **the region's lowest university
+take-up, a below-average share of young graduates (21.6% of 25–39s vs 30.0%
+nationally), and its steepest population decline (−6.5 per 1,000)**. The town
+exports its most educated cohort and never recovers it.
+
+**An honest caveat — it's not purely the missing university.** Barletta-Andria-
+Trani also lacks its own university yet records the *highest* transition rate in
+Puglia, helped by sitting between the Bari and Foggia campuses; and Brindisi's
+petro-chemical and agricultural economy plausibly channels some school-leavers
+straight into work rather than study. So the gap is partly a participation
+shortfall (a few points) and partly *what happens after enrolment*: an
+out-migration the local labour market gives graduates no compelling reason to
+reverse. Fixing the take-up rate alone would not help much if the graduate jobs
+to come home to still aren't there.
+""")
+
     st.markdown("#### Where the popular story needs correcting")
     st.markdown("""
 - On **jobs**, Brindisi is actually one of Puglia's better provinces: its
